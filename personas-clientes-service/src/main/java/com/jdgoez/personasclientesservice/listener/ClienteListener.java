@@ -17,20 +17,10 @@ public class ClienteListener {
     }
 
     @RabbitListener(queues = RabbitMQConfig.QUEUE_NAME)
-    public void recibirSolicitudCliente(Long clienteId) {
-        System.out.println("📥 Mensaje recibido en personas-clientes-service: ID cliente = " + clienteId);
-
-        Cliente cliente = clienteRepository.findById(clienteId).orElse(null);
-
-        if (cliente != null) {
-            ClienteDTO clienteDTO = new ClienteDTO(
-                    cliente.getId(),
-                    cliente.getNombre(),
-                    cliente.getIdentificacion()
-            );
-            System.out.println("✅ Cliente encontrado: " + clienteDTO.getNombre() + " [" + clienteDTO.getIdentificacion() + "]");
-        } else {
-            System.out.println("❌ Cliente no encontrado con ID: " + clienteId);
-        }
+    public boolean verificarCliente(Long clienteId) {
+        boolean existe = clienteRepository.existsById(clienteId);
+        System.out.println("🔍 Verificación de cliente [" + clienteId + "]: " + (existe ? "Existe" : "No existe"));
+        return existe;
     }
+
 }
