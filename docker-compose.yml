@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+  # Base de datos PostgreSQL
   postgres:
     image: postgres:14
     container_name: banco_postgres
@@ -13,15 +14,58 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  # RabbitMQ
   rabbitmq:
     image: rabbitmq:3-management
     container_name: banco_rabbitmq
     ports:
-      - "5672:5672"   # para la aplicación
-      - "15672:15672" # para acceder al panel de administración
+      - "5672:5672"   # Para la comunicación de servicios
+      - "15672:15672" # Panel de administración
     environment:
       RABBITMQ_DEFAULT_USER: admin
       RABBITMQ_DEFAULT_PASS: admin
+
+  # Microservicio de Personas / Clientes
+  personas-clientes-service:
+    build:
+      context: ./personas-clientes-service
+    container_name: personas_clientes
+    depends_on:
+      - postgres
+      - rabbitmq
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bancadb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: admin
+      SPRING_RABBITMQ_PASSWORD: admin
+      SPRING_PROFILES_ACTIVE: default
+    restart: on-failure
+
+  # Microservicio de Cuentas / Movimientos
+  cuentas-movimientos-service:
+    build:
+      context: ./cuentas-movimientos-service
+    container_name: cuentas_movimientos
+    depends_on:
+      - postgres
+      - rabbitmq
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/bancadb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: admin
+      SPRING_RABBITMQ_PASSWORD: admin
+      SPRING_PROFILES_ACTIVE: default
+    restart: on-failure
 
 volumes:
   postgres_data:

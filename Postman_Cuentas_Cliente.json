@@ -1,0 +1,67 @@
+{
+    "info": {
+        "_postman_id": "8e37a5b8-1234-4a7e-b678-example",
+        "name": "Pruebas - Cuentas con validaci\u00f3n de Cliente v\u00eda RabbitMQ",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "\u2705 Crear cuenta con cliente existente",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"clienteId\": 1,\n    \"numeroCuenta\": \"123456789\",\n    \"tipoCuenta\": \"AHORROS\",\n    \"saldoInicial\": 100.0\n}"
+                },
+                "url": {
+                    "raw": "http://localhost:8082/api/cuentas",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8082",
+                    "path": [
+                        "api",
+                        "cuentas"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "\u274c Crear cuenta con cliente inexistente",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"clienteId\": 9999,\n    \"numeroCuenta\": \"987654321\",\n    \"tipoCuenta\": \"CORRIENTE\",\n    \"saldoInicial\": 500.0\n}"
+                },
+                "url": {
+                    "raw": "http://localhost:8082/api/cuentas",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8082",
+                    "path": [
+                        "api",
+                        "cuentas"
+                    ]
+                }
+            },
+            "response": []
+        }
+    ]
+}

@@ -1,0 +1,164 @@
+{
+  "info": {
+    "name": "Cuentas y Movimientos API",
+    "_postman_id": "cuentas-movimientos-api-test",
+    "description": "Colecci\u00f3n para probar el CRUD de cuentas y movimientos con validaciones y l\u00f3gica de saldo.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Crear Cuenta - Correcto",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"numeroCuenta\": \"1002003001\",\n  \"tipoCuenta\": \"Ahorros\",\n  \"saldoInicial\": 500.0,\n  \"estado\": true,\n  \"clienteId\": 1\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8082/cuentas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "cuentas"
+          ]
+        }
+      }
+    },
+    {
+      "name": "2. Crear Cuenta - Saldo negativo",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"numeroCuenta\": \"1002003002\",\n  \"tipoCuenta\": \"Corriente\",\n  \"saldoInicial\": -100.0,\n  \"estado\": true,\n  \"clienteId\": 1\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8082/cuentas",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "cuentas"
+          ]
+        }
+      }
+    },
+    {
+      "name": "3. Realizar Dep\u00f3sito",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tipoMovimiento\": \"DEPOSITO\",\n  \"valor\": 200.0,\n  \"cuentaId\": 1\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8082/movimientos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "movimientos"
+          ]
+        }
+      }
+    },
+    {
+      "name": "4. Realizar Retiro v\u00e1lido",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tipoMovimiento\": \"RETIRO\",\n  \"valor\": 100.0,\n  \"cuentaId\": 1\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8082/movimientos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "movimientos"
+          ]
+        }
+      }
+    },
+    {
+      "name": "5. Realizar Retiro con Saldo Insuficiente",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"tipoMovimiento\": \"RETIRO\",\n  \"valor\": 9999.0,\n  \"cuentaId\": 1\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8082/movimientos",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "movimientos"
+          ]
+        }
+      }
+    },
+    {
+      "name": "6. Listar Movimientos por Cuenta",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:8082/movimientos/cuenta/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "movimientos",
+            "cuenta",
+            "1"
+          ]
+        }
+      }
+    }
+  ]
+}

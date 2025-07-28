@@ -1,0 +1,119 @@
+{
+  "info": {
+    "name": "Clientes - Pruebas de Validaci\u00f3n y Excepciones",
+    "_postman_id": "clientes-api-test-collection",
+    "description": "Colecci\u00f3n para probar el CRUD de clientes con validaciones y excepciones personalizadas.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Crear Cliente - Correcto",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Jose Lema\",\n  \"genero\": \"Masculino\",\n  \"edad\": 30,\n  \"identificacion\": \"1234567890\",\n  \"direccion\": \"Otavalo sn y principal\",\n  \"telefono\": \"098254785\",\n  \"password\": \"1234\",\n  \"estado\": true\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/clientes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "clientes"
+          ]
+        }
+      }
+    },
+    {
+      "name": "2. Crear Cliente - Campo vac\u00edo (nombre)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"\",\n  \"genero\": \"Masculino\",\n  \"edad\": 30,\n  \"identificacion\": \"1111111111\",\n  \"direccion\": \"Direcci\\u00f3n X\",\n  \"telefono\": \"099999999\",\n  \"password\": \"abc123\",\n  \"estado\": true\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/clientes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "clientes"
+          ]
+        }
+      }
+    },
+    {
+      "name": "3. Crear Cliente - Identificaci\u00f3n duplicada",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Duplicado\",\n  \"genero\": \"Femenino\",\n  \"edad\": 25,\n  \"identificacion\": \"1234567890\",\n  \"direccion\": \"Otra direcci\\u00f3n\",\n  \"telefono\": \"091234567\",\n  \"password\": \"pwd\",\n  \"estado\": true\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/clientes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "clientes"
+          ]
+        }
+      }
+    },
+    {
+      "name": "4. Actualizar Cliente - No existente",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Prueba\",\n  \"genero\": \"Masculino\",\n  \"edad\": 40,\n  \"identificacion\": \"987654321\",\n  \"direccion\": \"Direcci\\u00f3n\",\n  \"telefono\": \"097654321\",\n  \"password\": \"pass\",\n  \"estado\": true\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/clientes/999",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "clientes",
+            "999"
+          ]
+        }
+      }
+    }
+  ]
+}
