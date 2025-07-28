@@ -1,14 +1,14 @@
 
-# 🏦 Sistema - Microservicios
+# Sistema - Microservicios
 
 Este proyecto implementa un sistema distribuido utilizando microservicios desarrollados con **Spring Boot**, desplegados con **Docker**, y respaldados por **PostgreSQL** y **RabbitMQ** para la mensajería asincrónica.
 
-## 📦 Microservicios
+## Microservicios
 
 - `personas-clientes-service`: Gestiona la creación y administración de personas y clientes.
 - `cuentas-movimientos-service`: Gestiona cuentas bancarias y registra movimientos (depósitos, retiros).
 
-## 🔧 Tecnologías utilizadas
+## Tecnologías utilizadas
 
 - Java 17
 - Spring Boot 3.5.4
@@ -20,7 +20,7 @@ Este proyecto implementa un sistema distribuido utilizando microservicios desarr
 - Postman (para pruebas manuales)
 - JUnit y Mockito (para pruebas automáticas)
 
-## 🐳 Despliegue con Docker
+## Despliegue con Docker
 
 ### 1. Clona el repositorio
 
@@ -54,7 +54,7 @@ Esto levanta:
 - Usuario: `admin`
 - Contraseña: `admin`
 
-## 🧪 Pruebas con Postman
+## Pruebas con Postman
 
 Se incluyen pruebas manuales en formato JSON para Postman. Puedes importarlo en Postman para probar los endpoints:
 
@@ -63,7 +63,7 @@ Se incluyen pruebas manuales en formato JSON para Postman. Puedes importarlo en 
 - Realizar depósitos y retiros
 - Listar movimientos
 
-## ✅ Pruebas automatizadas
+## Pruebas automatizadas
 
 Para ejecutar pruebas unitarias:
 
@@ -77,7 +77,7 @@ Las pruebas incluyen:
 - Controladores REST
 - Algunas pruebas de integración
 
-## 🗃️ Estructura del proyecto
+## Estructura del proyecto
 
 ```
 .
@@ -99,7 +99,7 @@ Las pruebas incluyen:
 └── README.md
 ```
 
-## 📘 Endpoints disponibles
+## Endpoints disponibles
 
 ### Personas/Clientes (localhost:8081)
 
@@ -119,7 +119,7 @@ Las pruebas incluyen:
 - `POST /movimientos` - Crear movimiento
 - `GET /movimientos` - Listar movimientos
 
-## 📌 Notas
+## Notas
 
 - Los microservicios se comunican mediante RabbitMQ para validar la existencia del cliente antes de crear cuentas.
 - Se sigue una arquitectura limpia y modular, separando las responsabilidades de forma clara.
