@@ -1,28 +1,33 @@
 package com.jdgoez.cuentasmovimientosservice.config;
 
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfig {
 
-    public static final String EXCHANGE_NAME = "cliente.direct";
-    public static final String QUEUE_NAME = "cliente.request.queue";
-    public static final String ROUTING_KEY = "cliente.request";
+    public static final String QUEUE_NAME = "validar.cliente.request";
+    public static final String EXCHANGE_NAME = "cliente.exchange";
+    public static final String ROUTING_KEY = "cliente.validar";
 
     @Bean
-    public DirectExchange clienteExchange() {
+    public DirectExchange exchange() {
         return new DirectExchange(EXCHANGE_NAME);
     }
 
+    // Este bean no es necesario en este microservicio si no estás escuchando la cola,
+    // pero incluirlo no causa problema:
     @Bean
-    public Queue clienteRequestQueue() {
-        return new Queue(QUEUE_NAME, true); // durable
+    public Queue queue() {
+        return new Queue(QUEUE_NAME);
     }
 
     @Bean
-    public Binding clienteBinding(Queue clienteRequestQueue, DirectExchange clienteExchange) {
-        return BindingBuilder.bind(clienteRequestQueue).to(clienteExchange).with(ROUTING_KEY);
+    public Binding binding(Queue queue, DirectExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange).with(ROUTING_KEY);
     }
 }

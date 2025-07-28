@@ -1,8 +1,6 @@
 package com.jdgoez.personasclientesservice.listener;
 
 import com.jdgoez.personasclientesservice.config.RabbitMQConfig;
-import com.jdgoez.personasclientesservice.dto.ClienteDTO;
-import com.jdgoez.personasclientesservice.model.Cliente;
 import com.jdgoez.personasclientesservice.repository.ClienteRepository;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
@@ -17,10 +15,12 @@ public class ClienteListener {
     }
 
     @RabbitListener(queues = RabbitMQConfig.QUEUE_NAME)
-    public boolean verificarCliente(Long clienteId) {
+    public String validarCliente(Long clienteId) {
+        System.out.println("📥 Validando cliente con ID: " + clienteId);
         boolean existe = clienteRepository.existsById(clienteId);
-        System.out.println("🔍 Verificación de cliente [" + clienteId + "]: " + (existe ? "Existe" : "No existe"));
-        return existe;
+        return existe ? "true" : "false";
     }
+
+
 
 }

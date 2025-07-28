@@ -16,12 +16,13 @@ public class ClienteRequestSender {
     public boolean validarCliente(Long clienteId) {
         System.out.println("📤 Validando cliente con ID: " + clienteId);
 
-        Boolean respuesta = (Boolean) rabbitTemplate.convertSendAndReceive(
+        String respuesta = (String) rabbitTemplate.convertSendAndReceive(
                 RabbitMQConfig.EXCHANGE_NAME,
                 RabbitMQConfig.ROUTING_KEY,
                 clienteId
         );
 
-        return respuesta != null && respuesta;
+        return "true".equalsIgnoreCase(respuesta);
     }
+
 }
