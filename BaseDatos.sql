@@ -4,9 +4,12 @@
 
 -- CREATE DATABASE bancadb;
 
--- \c bancadb; 
+-- \c bancadb;
 
 -- ========================
+-- TABLA: persona
+-- ========================
+
 CREATE TABLE persona (
     id SERIAL PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
@@ -18,15 +21,14 @@ CREATE TABLE persona (
 );
 
 -- ========================
--- TABLA: cliente
+-- TABLA: cliente (hereda de persona)
 -- ========================
 
 CREATE TABLE cliente (
-    id SERIAL PRIMARY KEY,
-    persona_id INTEGER NOT NULL,
+    id INTEGER PRIMARY KEY, -- MISMO ID que persona
     password VARCHAR(255) NOT NULL,
     estado BOOLEAN DEFAULT TRUE,
-    CONSTRAINT fk_persona FOREIGN KEY (persona_id) REFERENCES persona(id)
+    CONSTRAINT fk_cliente_persona FOREIGN KEY (id) REFERENCES persona(id)
 );
 
 -- ========================
@@ -50,7 +52,7 @@ CREATE TABLE cuenta (
 CREATE TABLE movimiento (
     id SERIAL PRIMARY KEY,
     fecha TIMESTAMP NOT NULL DEFAULT NOW(),
-    tipo_movimiento VARCHAR(20) NOT NULL, -- Ej: 'RETIRO', 'DEPOSITO'
+    tipo_movimiento VARCHAR(20) NOT NULL,
     valor NUMERIC(15,2) NOT NULL,
     saldo NUMERIC(15,2),
     cuenta_id INTEGER NOT NULL,

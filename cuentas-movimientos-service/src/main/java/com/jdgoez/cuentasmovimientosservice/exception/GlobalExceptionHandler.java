@@ -44,6 +44,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ClienteNoEncontradoException.class)
+    public ResponseEntity<String> manejarClienteNoEncontrado(ClienteNoEncontradoException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+
     private ResponseEntity<Object> errorResponse(String mensaje, WebRequest request, HttpStatus status) {
         Map<String, Object> body = new HashMap<>();
         body.put("mensaje", mensaje);

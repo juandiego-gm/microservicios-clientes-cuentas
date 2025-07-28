@@ -16,4 +16,5 @@ public class Cliente extends Persona {
 
     @NotNull(message = "El estado es obligatorio")
     private Boolean estado;
+
 }
