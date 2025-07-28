@@ -1,6 +1,7 @@
 package com.jdgoez.personasclientesservice.service.impl;
 
 import com.jdgoez.personasclientesservice.exception.ClienteNoEncontradoException;
+import com.jdgoez.personasclientesservice.exception.IdentificacionDuplicadaException;
 import com.jdgoez.personasclientesservice.model.Cliente;
 import com.jdgoez.personasclientesservice.repository.ClienteRepository;
 import com.jdgoez.personasclientesservice.service.ClienteService;
@@ -20,12 +21,19 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente crearCliente(Cliente cliente) {
+        clienteRepository.findByIdentificacion(cliente.getIdentificacion())
+                .ifPresent(c -> {
+                    throw new IdentificacionDuplicadaException("Ya existe un cliente con esa identificación.");
+                });
+
         return clienteRepository.save(cliente);
     }
 
+
     @Override
     public Cliente obtenerCliente(Long id) {
-        return clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+        return clienteRepository.findById(id)
+                .orElseThrow(() -> new ClienteNoEncontradoException("Cliente con ID " + id + " no encontrado"));
     }
 
 
