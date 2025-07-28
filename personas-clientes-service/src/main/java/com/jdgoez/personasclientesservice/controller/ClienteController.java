@@ -2,6 +2,7 @@ package com.jdgoez.personasclientesservice.controller;
 
 import com.jdgoez.personasclientesservice.model.Cliente;
 import com.jdgoez.personasclientesservice.service.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public Cliente crear(@RequestBody Cliente cliente) {
+    public Cliente crear(@Valid @RequestBody Cliente cliente) {
         return clienteService.crearCliente(cliente);
     }
 
@@ -32,7 +33,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    public Cliente actualizar(@PathVariable Long id, @RequestBody Cliente cliente) {
+    public Cliente actualizar(@PathVariable Long id, @Valid @RequestBody Cliente cliente) {
         return clienteService.actualizarCliente(id, cliente);
     }
 
