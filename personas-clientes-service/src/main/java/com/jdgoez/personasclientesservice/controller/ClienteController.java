@@ -3,6 +3,7 @@ package com.jdgoez.personasclientesservice.controller;
 import com.jdgoez.personasclientesservice.model.Cliente;
 import com.jdgoez.personasclientesservice.service.ClienteService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class ClienteController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Cliente crear(@Valid @RequestBody Cliente cliente) {
         return clienteService.crearCliente(cliente);
     }
@@ -38,6 +40,7 @@ public class ClienteController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void eliminar(@PathVariable Long id) {
         clienteService.eliminarCliente(id);
     }
